@@ -16,9 +16,15 @@ def api(nazri):
     if nazri == "nazri":
         ret = "Nazri Ganteng"
         return make_response(jsonify(ret))
-    elif nazri == "tambah-aja-scraplo-sini":
-        ret["result"] = "Nazri Ganteng Cuy"
-        return make_response(jsonify(ret))
+    elif nazri == "arti":
+        twit = request.args.get("nama", "")
+        link = "http://primbon.com/arti_nama.php?nama1={}&proses=+Submit%21+".format(urllib.parse.quote(twit))
+        r = requests.get(link)
+        soup = BeautifulSoup(r.content, 'html.parser')
+        a = soup.find('div', attrs={'id':'body','class':'width'}).text
+        ret = {}
+        ret["result"] = a.replace("\n","").replace("Nama:ARTI NAMA (JAWA)Berikut ini adalah kumpulan arti nama lengkap dari A-Z dalam budaya (bahasa) Jawa untuk Laki-laki (L) dan Perempuan (P).Arti Nama (L) Arti Nama (P)ARTI NAMA (ARAB / ISLAM)Berikut ini adalah kumpulan arti nama lengkap dari A-Z dalam budaya (bahasa) Arab atau bernuansa Islami untuk Laki-laki (L) dan Perempuan (P).Arti Nama (L) Arti Nama (P)Catatan: Gunakan juga aplikasi numerologi Kecocokan Nama, untuk melihat sejauh mana keselarasan nama anda dengan diri anda.","")
+        return  make_response(jsonify(ret))
       
 if __name__ == "__main__":
     app.run()
