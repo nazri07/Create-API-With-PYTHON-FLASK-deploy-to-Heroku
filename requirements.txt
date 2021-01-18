@@ -3,3 +3,5 @@ requests
 gunicorn
 bs4
 pytz
+lxml
+faster-than-requests
